@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import '../styles/globals.css';
-import 'antd-table-infinity/index.css';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;

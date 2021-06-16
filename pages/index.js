@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -32,14 +32,14 @@ const Home = (props) => {
 
   const toggleSearchable = (search) => {
     setIsSearchable(search)
+    getCovidCountry(search.value)
   }
 
   const getCovidCountry = async (country) => {
-    getCovidCountry(countries);
     await httpClient.get(`/statistics?country=${country}`)
     .then((res) => {
       console.log('res', res);
-      setData(res.data)
+      setData(res.data.response)
     })
     .catch((err) => console.log('err', err));
   };
@@ -96,138 +96,30 @@ const Home = (props) => {
           onChange={toggleSearchable}
           options={countries}
         />
-        <div className="sc-AxjAm sc-oUDcU drsnSD">
-          <h2 className="sc-AxheI bbtMLp">
-            <div style={{fontSize: 25}}>
-              <div style={{display: 'block', whiteSpace: 'nowrap'}}>
-                Situation by Region, Country, Territory &amp; Area
-              </div>
-            </div>
-          </h2>
-          <div className="sc-pczax hJdRYq">
-            <div
-              role="table"
-              className="sc-fzonjX bXGqiI"
-              style={{minWidth: 0}}
-            >
-              <div className="thead">
-                <div
-                  className="tr"
-                  role="row"
-                >
-                  {
-                    column.map((item) => (
-                      <div
-                        key={item.key}
-                        className="th"
-                        colSpan={1}
-                        role="columnheader"
-                        title="Toggle SortBy" 
-                        // style={{
-                        //   boxSizing: 'border-box',
-                        //   flex: '82.3333 0 auto',
-                        //   minWidth: 0,
-                        //   width: '82.3333px',
-                        //   cursor: 'pointer'
-                        // }}
-                      >
-                        <div className="sc-AxjAm kbGAkV">
-                          <span>{item.title}</span>
-                          <span />
-                        </div>
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-              <div data-id="totals-header" className="sc-fznOgF glfmCu">
-                <div className="tr">
-                  <div className="sc-fznYue iNYtic th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                    <strong>Global</strong>
-                  </div>
-                  <div className="sc-fznYue joCDVo th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                    176,156,662
-                  </div>
-                  <div className="sc-fznYue iNYtic th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                    292,499
-                  </div>
-                  <div className="sc-fznYue iNYtic th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                    3,815,486
-                  </div>
-                  <div className="sc-fznYue iNYtic th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                    8,082
-                  </div>
-                  <div className="sc-fznYue iNYtic th" colSpan={1} style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}} />
-                  </div>
-                </div>
-              <div role="rowgroup" className="tbody">
-                <div style={{position: 'relative', height: 600, width: 1008, overflow: 'visible auto', willChange: 'transform', direction: 'ltr'}}>
-                  <div style={{height: 50, width: '100%'}}>
-                    <div role="row" className="tr depth_0 " style={{display: 'flex', flex: '1 0 auto', minWidth: 0, position: 'absolute', left: 0, top: 0, height: 50, width: '100%'}}>
-                      {console.log('data', data)}
-                      <div className="column_name td" role="cell" style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                        <div className="sc-AxjAm sc-fzoMdx cTipgc">
-                          <img src="" alt="flag TH" width={30} height={20} data-id="country-flag" />
-                          <span>Thailand</span>
-                        </div>
-                      </div>
-                      <div className="column_Cumulative_Confirmed td" role="cell" style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                        <div className="sc-AxjAm sc-fznAgC dWLLcp">
-                          <div className="sc-AxjAm sc-fzowVh CBlYA">
-                            <div className="sc-fzqzEs hULauc">202,264</div>
-                            <div data-id="bar" className="sc-AxjAm sc-fzpkqZ dMCzxG">
-                              <div className="sc-AxjAm sc-fznLPX eshEoa bar_fill" style={{width: '0.610117%'}}>
-                                <div className="sc-AxjAm sc-fzqMdD eBAmNl" /></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="column_Confirmed td" role="cell" style={{boxSizing: 'border-box', flex: '82.3333 0 auto', minWidth: 0, width: '82.3333px'}}>
-                          <div className="sc-fzqzEs hULauc">3,000</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+        <p>selected : {console.log(isSearchable, data)}</p>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <p>add table</p>
+        {
+          data.map((item) => (
+            <Fragment key={item.country}>
+              <div>continent: {item.continent}</div>
+              <div>country: {item.country}</div>
+              <div>cases:</div>
+              <div>cases active: {item.cases.active}</div>
+              <div>cases critical: {item.cases.critical}</div>
+              <div>cases new: {item.cases.new}</div>
+              <div>cases recovered: {item.cases.recovered}</div>
+              <div>cases total: {item.cases.total}</div>
+              <div>day: {item.day}</div>
+              <div>deaths new: {item.deaths.new}</div>
+              <div>deaths total: {item.deaths.total}</div>
+              <div>population: {item.population}</div>
+              <div>tests total: {item.tests.total}</div>
+              <div>time: {item.time}</div>
+              
+            </Fragment>
+          ))
+        }
       </main>
 
       <footer className={styles.footer}>

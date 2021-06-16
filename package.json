@@ -9,8 +9,28 @@
   },
   "dependencies": {
     "@visx/geo": "^1.7.0",
+    "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "next": "10.2.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-select": "^4.3.1",
+    "sweetalert2": "^11.0.17",
+    "url-join": "^4.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-sonarjs": "^0.8.0-125",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "prettier": "^2.3.1"
   }
 }

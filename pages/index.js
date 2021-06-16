@@ -1,8 +1,48 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Select from 'react-select';
 
-export default function Home() {
+import { httpClient } from '../utils/HttpClient';
+import styles from '../styles/Home.module.css';
+
+const Home = (props) => {
+
+  const [countries, setCountries] = useState({label:"Afghanistan", value: "Afghanistan"});
+  const [data, setData] = useState([]);
+  const [isSearchable, setIsSearchable] = useState(countries);
+
+  useEffect(() => {
+    getCountry();
+  }, [setCountries]);
+
+  const getCountry = async () => {
+    await httpClient.get(`/countries`)
+    .then((res) => {
+      console.log('res', res.data)
+      const obj = Object.keys(res.data.response).map((val, key) => {
+        console.log(key, val)
+        ({ id:key, label: key, value: key })
+      });
+      
+      setCountries(obj);
+    })
+    .catch((err) => console.log('err', err));
+  }
+
+  const toggleSearchable = (search) => {
+    setIsSearchable(search)
+  }
+
+  const getCovidCountry = async (country) => {
+    getCovidCountry(countries);
+    await httpClient.get(`/statistics?country=${country}`)
+    .then((res) => {
+      console.log('res', res);
+      setData(res)
+    })
+    .catch((err) => console.log('err', err));
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +55,12 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
+        {console.log('countries', countries)}
+        {/* <Select
+          value={isSearchable}
+          onChange={toggleSearchable}
+          options={countries}
+        /> */}
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
@@ -67,3 +112,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home;

@@ -1,16 +1,10 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import axios from 'axios';
-import dynamic from 'next/dynamic';
-import moment from 'moment';
 
-import { httpClient } from '../utils/HttpClient';
 import Layout from '@/components/containers/Layout';
 import styles from '../styles/Home.module.css';
-import {SectionHero, SectionCounter} from 'components/views'
-
-const SelectNoSSR = dynamic(() => import("react-select"), { ssr: false });
+import {SectionHero, SectionCountries, SectionCounter} from '@/components/views'
 
 
 const Home = () => {
@@ -19,8 +13,6 @@ const Home = () => {
   const [dataLastChecked, setDataLastChecked] = useState('');
   const [covid19Stats, setCovid19Stats] = useState([]);
   const [isSearchable, setIsSearchable] = useState(null);
-  const [page, setPage] = useState(1);
-  const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
     getCountry();
@@ -37,7 +29,6 @@ const Home = () => {
       })
     .then((res) => {
       const obj = res.data.response.map((item, index) => ({ id: index+1, label: item, value: item }))
-      // console.log(obj);
       setCountries(obj);
     })
     .catch((err) => console.log('err', err));
@@ -58,10 +49,8 @@ const Home = () => {
       headers: headers
     })
     .then((res) => {
-      console.log('res 1', res);
       setData(res.data.data.covid19Stats);
       setDataLastChecked(res.data.data.lastChecked)
-      // setData(res.data.response)
     })
     .catch((err) => console.log('err', err));
 
@@ -73,7 +62,6 @@ const Home = () => {
       headers: headerscovid
     })
     .then((res) => {
-      console.log('res 2', res);
       setCovid19Stats(res.data.response)
     })
     .catch((err) => console.log('err', err));
@@ -90,74 +78,17 @@ const Home = () => {
 
       <main className={styles.main}>
         <SectionHero />
-        <section className="counter-area">
-          <div className="container">
-            <div className="d-inline-block text-center">
-              <h2 className="mb-4 d-inline-block">เลือกประเทศเพื่อดูสถานการณ์ COVID-19</h2>
-              <SelectNoSSR
-                className="d-inline-block"
-                styles={{width: 200}}
-                instanceId="instance-id"
-                value={isSearchable}
-                onChange={toggleSearchable}
-                options={countries}
-              />
-            </div>
-          </div>
-        </section>
-        <section className="counter-area">
-            <div className="container">
-              {isSearchable !== null && (<div className="about-info">
-                <h2>สถานการณ์ในประเทศ: {isSearchable.label}</h2>
-              </div>)
-              }
-            {
-              data.map((item) => (
-                <Fragment key={item.country}>
-                  <SectionCounter
-                    key={item.country}
-                    country={item.country}
-                    cases={item.confirmed}
-                    recovered={item.recovered}
-                    deaths={item.deaths}
-                    lastUpdate={moment(dataLastChecked).format('Do MMMM YYYY, h:mm:ss a')}
-                    text="***ค่าของ api COVID-19 Coronavirus Statistics มีค่าใกล้เคียงกับค่าจาก WHO"
-                  />
-                  {/* ผู้ป่วยยืนยัน (คน)
-                  สะสม {item.confirmed}
-                  รายใหม่
-                  3,129
-                  ดีขึ้น
-                  {item.recovered}
-                  เสียชีวิต
-                  {item.deaths} */}
-                </Fragment>
-              ))
-            }
-            <div className="mt-5">
-            {
-              covid19Stats.map((item) => (
-                <Fragment key={item.country}>
-                  <SectionCounter
-                    cases={item.cases.total}
-                    newcases={item.cases.new}
-                    recovered={item.cases.recovered}
-                    deaths={item.deaths.total}
-                    lastUpdate={moment(item.time).format('Do MMMM YYYY, h:mm:ss a')}
-                    text="***ค่าของ api COVID-19 มีค่าใกล้เคียงกับค่าจากกรมควบคุมโรค"
-                  />
-                  {/* สะสม {item.cases.total}207,724
-                  รายใหม่
-                  3,129{item.cases.new}
-                  ดีขึ้น {item.cases.recovered}
-                  เสียชีวิต
-                  1,555{item.deaths.total} */}
-                </Fragment>
-              ))
-            }
-            </div>
-          </div>
-        </section>
+        <SectionCountries
+          isSearchable={isSearchable}
+          onSearchable={toggleSearchable}
+          countries={countries}
+        />
+        <SectionCounter
+          isSearchable={isSearchable}
+          lastChecked={dataLastChecked}
+          data={data}
+          covid19Stats={covid19Stats}
+        />
       </main>
     </div>
     </Layout>

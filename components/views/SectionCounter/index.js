@@ -1,92 +1,73 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, {Fragment} from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
-const Counter = (props) => {
-    const {className, recovered, cases, newcases, deaths, lastUpdate, text} = props;
+import {Counter} from '@/components/views'
+
+const SectionCounter = (props) => {
+    const {isSearchable, data, lastChecked, covid19Stats} = props;
     return (
-        
-        <div className={`counter-inner-box ${className}`}>
-            <div className="text-center">
-                <h6 className="small-title">CORONAVIRUS (COVID-19)</h6>
-                <h2>ผู้ป่วยยืนยัน (คน)</h2>
+        <section className="counter-area">
+            <div className="container">
+              {isSearchable !== null && (<div className="about-info">
+                <h2>สถานการณ์ในประเทศ: {isSearchable.label}</h2>
+              </div>)
+              }
+            {
+              data.map((item) => (
+                <Fragment key={item.country}>
+                  <Counter
+                    key={item.country}
+                    country={item.country}
+                    cases={item.confirmed}
+                    recovered={item.recovered}
+                    deaths={item.deaths}
+                    lastUpdate={moment(lastChecked).format('Do MMMM YYYY, h:mm:ss a')}
+                    text="***ค่าของ api COVID-19 Coronavirus Statistics มีค่าใกล้เคียงกับค่าจาก WHO"
+                  />
+                  {/* ผู้ป่วยยืนยัน (คน)
+                  สะสม {item.confirmed}
+                  รายใหม่
+                  3,129
+                  ดีขึ้น
+                  {item.recovered}
+                  เสียชีวิต
+                  {item.deaths} */}
+                </Fragment>
+              ))
+            }
+            <div className="mt-5">
+            {
+              covid19Stats.map((item) => (
+                <Fragment key={item.country}>
+                  <Counter
+                    cases={item.cases.total}
+                    newcases={item.cases.new}
+                    recovered={item.cases.recovered}
+                    deaths={item.deaths.total}
+                    lastUpdate={moment(item.time).format('Do MMMM YYYY, h:mm:ss a')}
+                    text="***ค่าของ api COVID-19 มีค่าใกล้เคียงกับค่าจากกรมควบคุมโรค"
+                  />
+                  {/* สะสม {item.cases.total}207,724
+                  รายใหม่
+                  3,129{item.cases.new}
+                  ดีขึ้น {item.cases.recovered}
+                  เสียชีวิต
+                  1,555{item.deaths.total} */}
+                </Fragment>
+              ))
+            }
             </div>
-            <div className="row">
-                {
-                    cases && (<div className="col counter-item">
-                        <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={8261260}>
-                                <div className="odometer-inside">
-                                    <span className="odometer-digit">
-                                        <span className="odometer-digit-spacer">{cases}</span>
-                                    </span>
-                                </div>
-                            </h3>
-                            <p>Confirmed Cases - cumulative total</p>
-                        </div>
-                    </div>)
-                }
-                {
-                    newcases && (<div className="col counter-item">
-                        <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={8261260}>
-                                <div className="odometer-inside">
-                                    <span className="odometer-digit">
-                                        <span className="odometer-digit-spacer">{newcases}</span>
-                                    </span>
-                                </div>
-                            </h3>
-                            <p>Confirmed Cases - cumulative total</p>
-                        </div>
-                    </div>)
-                }
-                {
-                    recovered && (<div className="col counter-item">
-                        <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={4013202}>
-                                <div className="odometer-inside">
-                                    <span className="odometer-digit">
-                                        <span className="odometer-digit-spacer">{recovered}</span>
-                                    </span>
-                                </div>
-                            </h3>
-                            <p>Recovered Cases</p>
-                        </div>
-                    </div>)
-                }
-                {
-                    deaths && (<div className="col counter-item">
-                        <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme">
-                                <div className="odometer-inside">
-                                    <span className="odometer-digit">
-                                        <span className="odometer-digit-spacer">{deaths}</span>
-                                    </span>
-                                </div>
-                            </h3>
-                            {/* เสียชีวิต - รายงานใหม่ใน 24 ชั่วโมงที่แล้ว */}
-                            {/* Deaths - newly reported in last 24 hours */}
-                            <p>Deaths - cumulative total</p>
-                        </div>
-                    </div>)
-                }
-                <div className="col-12 text-center">
-                    <div className="counter-update-box">
-                        <h6 className="small-title">** last update {lastUpdate}</h6>
-                        <p className="covid-update-status">{text}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+          </div>
+        </section>
     )
 }
 
-Counter.propTypes = {
-    className: PropTypes.string,
-}
-Counter.defaultProps = {
-    className: '',
+SectionCounter.propTypes = {
+    isSearchable: PropTypes.object,
+    data: PropTypes.array,
+    covid19Stats: PropTypes.array,
 }
 
-export default Counter
+export default SectionCounter
 

@@ -118,6 +118,11 @@ a {
   color: #fff !important;
   background: #7166ff !important;
 }
+/*  */
+.select-area {
+  position: relative;
+  z-index: 1;
+}
 /* counter */
 
 .counter-area {

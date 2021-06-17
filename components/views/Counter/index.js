@@ -14,7 +14,7 @@ const Counter = (props) => {
                 {
                     cases && (<div className="col counter-item">
                         <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={8261260}>
+                            <h3 className="odometer odometer-auto-theme">
                                 <div className="odometer-inside">
                                     <span className="odometer-digit">
                                         <span className="odometer-digit-spacer">{cases}</span>
@@ -28,7 +28,7 @@ const Counter = (props) => {
                 {
                     newcases && (<div className="col counter-item">
                         <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={8261260}>
+                            <h3 className="odometer odometer-auto-theme">
                                 <div className="odometer-inside">
                                     <span className="odometer-digit">
                                         <span className="odometer-digit-spacer">{newcases}</span>
@@ -42,7 +42,7 @@ const Counter = (props) => {
                 {
                     recovered && (<div className="col counter-item">
                         <div className="single-counter-box">
-                            <h3 className="odometer odometer-auto-theme" data-count={4013202}>
+                            <h3 className="odometer odometer-auto-theme">
                                 <div className="odometer-inside">
                                     <span className="odometer-digit">
                                         <span className="odometer-digit-spacer">{recovered}</span>

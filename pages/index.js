@@ -58,7 +58,7 @@ const Home = () => {
       'x-rapidapi-key': process.env.RAPID_API_KEY,
       'x-rapidapi-host': process.env.RAPID_API_HOST,
     }
-    await axios.get(`${process.env.APP_API_HOST_CORONAVIRUS_STATISTICS}/statistics?country=${country}`, {
+    await axios.get(`${process.env.APP_API_HOST}/statistics?country=${country}`, {
       headers: headerscovid
     })
     .then((res) => {

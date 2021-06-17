@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 
 export default function MyApp(props) {

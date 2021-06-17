@@ -6,12 +6,12 @@ import Swal from 'sweetalert2';
 const isAbsoluteURLRegex = /^(?:\w+:)\/\//;
 
 const instance = axios.create({
-    baseURL: process.env.APP_API_HOST,
+    baseURL: process.env.APP_API_HOST_CORONAVIRUS_STATISTICS,
     withCredentials: true,
     timeout: 1000,
     headers: {
-        'x-rapidapi-key': process.env.RAPID_API_KEY,
-        'x-rapidapi-host': process.env.RAPID_API_HOST,
+      'x-rapidapi-key': process.env.RAPID_API_KEY,
+      'x-rapidapi-host': process.env.RAPID_API_CORONAVIRUS_STATISTICS,
     },
 })
 

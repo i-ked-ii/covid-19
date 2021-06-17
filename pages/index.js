@@ -90,24 +90,27 @@ const Home = () => {
 
       <main className={styles.main}>
         <SectionHero />
-        <div className="d-inline-block">
-          <h2 className="mb-4 d-inline-block">เลือกประเทศเพื่อดูสถานการณ์ COVID-19</h2>
-          <SelectNoSSR
-            className="d-inline-block"
-            styles={{width: 200}}
-            instanceId="instance-id"
-            value={isSearchable}
-            onChange={toggleSearchable}
-            options={countries}
-          />
-        </div>
-        
-        {isSearchable !== null && (<div className="about-info">
-          <h2>สถานการณ์ในประเทศ: {isSearchable.label}</h2>
-        </div>)
-        }
+        <section className="counter-area">
+          <div className="container">
+            <div className="d-inline-block text-center">
+              <h2 className="mb-4 d-inline-block">เลือกประเทศเพื่อดูสถานการณ์ COVID-19</h2>
+              <SelectNoSSR
+                className="d-inline-block"
+                styles={{width: 200}}
+                instanceId="instance-id"
+                value={isSearchable}
+                onChange={toggleSearchable}
+                options={countries}
+              />
+            </div>
+          </div>
+        </section>
         <section className="counter-area">
             <div className="container">
+              {isSearchable !== null && (<div className="about-info">
+                <h2>สถานการณ์ในประเทศ: {isSearchable.label}</h2>
+              </div>)
+              }
             {
               data.map((item) => (
                 <Fragment key={item.country}>

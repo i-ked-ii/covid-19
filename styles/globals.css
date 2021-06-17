@@ -20,6 +20,18 @@ a {
   width: 200px;
   margin-left: 10px;
 }
+@media only screen and (max-width: 768px) {
+  .home-area {
+    padding: 6rem 0;
+  }
+}
+@media only screen and (max-width: 736px) {
+  .css-2b097c-container,
+  .css-yk16xz-control {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
 .button {
   display: inline-block;
   padding: 12px 30px;
@@ -59,6 +71,16 @@ a {
   height: 100%;
   width: 100%;
 }
+@media only screen and (max-width: 768px) {
+  .home-area {
+    padding: 6rem 0;
+  }
+}
+@media only screen and (max-width: 736px) {
+  .home-area {
+    padding: 4rem 0;
+  }
+}
 .home-area .home-content h1 {
   font-size: 45px;
   color: #524f73;
@@ -75,6 +97,11 @@ a {
 }
 .home-content .home-btn-2 {
   margin-left: 10px;
+}
+@media only screen and (max-width: 768px) {
+  .home-content .home-btn-2 {
+    margin-left: 0px;
+  }
 }
 .home-content h5 {
   font-size: 14px;

@@ -14,9 +14,9 @@ const SectionHero = () => {
                             <a href="https://www.youtube.com/watch?v=elWIPbDfLA0" className="iq-video popup-video mfp-iframe button home-btn-2"> <i className="fa fa-play-circle-o" /> About COVID-19</a>
                         </div>
                     </div>
-                    <div className="col-12 col-md-12 col-lg-6">
+                    <div className="col-12 col-md-12 col-lg-6 pt-5 pt-lg-0">
                         <div className="text-center z-index position-relative home-image">
-                            {/* <img src="assets/img/home-front.png" className="img-fluid" alt /> */}
+                            <img src="/assets/images/fighting-virus.png" className="img-fluid" alt="Health" />
                         </div>
                     </div>
                 </div>
